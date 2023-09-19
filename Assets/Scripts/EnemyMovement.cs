@@ -17,7 +17,7 @@ public class EnemyMovement : MonoBehaviour {
         // get the starting position
         originalX = transform.position.x;
         enemyStartingPos = enemyBody.position;
-        Debug.Log(enemyStartingPos);
+        // Debug.Log(enemyStartingPos);
         ComputeVelocity();
     }
 
