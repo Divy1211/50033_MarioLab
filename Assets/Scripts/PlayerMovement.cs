@@ -64,14 +64,22 @@ public class PlayerMovement : MonoBehaviour {
         Time.timeScale = 1.0f;
     }
 
-    void FixedUpdate() {
+    void Update() {
         if (Input.GetKeyDown(KeyCode.R)) {
             RestartButtonCallback(0);
         }
         if (Time.timeScale == 0.0f) {
             return;
         }
+        if (Input.GetKeyDown(KeyCode.A)) {
+            marioSprite.flipX = true;
+        }
+        if (Input.GetKeyDown(KeyCode.D)) {
+            marioSprite.flipX = false;
+        }
+    }
 
+    void FixedUpdate() {
         float moveH = Input.GetAxisRaw("Horizontal");
 
         if (Mathf.Abs(moveH) > 0) {
@@ -80,12 +88,6 @@ public class PlayerMovement : MonoBehaviour {
                 marioBody.AddForce(movement * speed);
         }
 
-        if (Input.GetKeyDown(KeyCode.A)) {
-            marioSprite.flipX = true;
-        }
-        if (Input.GetKeyDown(KeyCode.D)) {
-            marioSprite.flipX = false;
-        }
         if (Input.GetKeyDown(KeyCode.Space) && onGroundState) {
             audioSrc.PlayOneShot(jumpSfx);
             marioBody.AddForce(Vector2.up * upSpeed, ForceMode2D.Impulse);
