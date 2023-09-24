@@ -1826,6 +1826,7 @@ GameObject:
   - component: {fileID: 1325373834}
   - component: {fileID: 1325373835}
   - component: {fileID: 1325373836}
+  - component: {fileID: 1325373837}
   m_Layer: 0
   m_Name: Mario
   m_TagString: Untagged
@@ -1921,7 +1922,7 @@ Transform:
   m_GameObject: {fileID: 1325373828}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.3778434, y: -2.874, z: 0}
+  m_LocalPosition: {x: -5.3778434, y: -2.902, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1987,6 +1988,7 @@ MonoBehaviour:
   speed: 150
   maxSpeed: 10
   upSpeed: 30
+  deathImpulse: 30
   scoreText: {fileID: 857395485}
   scoreText2: {fileID: 1444750384}
   enemies: {fileID: 1083136506}
@@ -1996,6 +1998,7 @@ MonoBehaviour:
   audioSrc: {fileID: 1325373836}
   jumpSfx: {fileID: 8300000, guid: bc5ca5e0703c54692a186434e1149ccd, type: 3}
   deathSfx: {fileID: 8300000, guid: 3a9c3269b45b1b54c99eef7ec41806e7, type: 3}
+  marioAnimatior: {fileID: 1325373837}
 --- !u!114 &1325373835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2112,6 +2115,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1325373837
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325373828}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6da222434f90a89449f70737acf7aa6d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1444750382
 GameObject:
   m_ObjectHideFlags: 0
