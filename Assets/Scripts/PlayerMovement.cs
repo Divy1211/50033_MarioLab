@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour {
 
     public Animator marioAnimatior;
 
+    public Transform cam;
+
     private bool onGroundState = true;
     private bool hasDoubleJumped = false;
     private bool releasedSpace = true;
@@ -74,6 +76,8 @@ public class PlayerMovement : MonoBehaviour {
         foreach (Transform eachChild in enemies.transform) {
             eachChild.transform.position = eachChild.GetComponent<EnemyMovement>().enemyStartingPos;
         }
+
+        cam.position = new Vector3(0.0f, 0.2f, -10.0f);
 
         jumpOverGoomba.score = 0;
         audioSrc.Stop();
