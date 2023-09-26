@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - Brick
+  - QBox
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -13,10 +16,10 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Obstacle
+  - Player
+  - Coin
   - 
   - 
   - 

@@ -25,16 +25,17 @@ public class JumpOverGoomba : MonoBehaviour {
             if (Mathf.Abs(transform.position.x - enemyLocation.position.x) < 0.5f) {
                 countScoreState = false;
                 score++;
-                scoreText.text = "Score: " + score.ToString();
-                scoreText2.text = "Score: " + score.ToString();
                 // Debug.Log(score);
             }
         }
+        scoreText.text = "Score: " + score;
+        scoreText2.text = "Score: " + score;
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.CompareTag("Ground"))
+        if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("QBox") || col.gameObject.CompareTag("Brick")) {
             onGroundState = true;
+        }
     }
 
 

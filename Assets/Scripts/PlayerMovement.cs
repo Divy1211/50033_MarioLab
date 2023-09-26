@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI scoreText2;
     public GameObject enemies;
+    public GameObject bricksOrBoxes;
 
     public JumpOverGoomba jumpOverGoomba;
 
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour {
     private static readonly int onSkid = Animator.StringToHash("onSkid");
     private static readonly int onReset = Animator.StringToHash("onReset");
 
+    private static readonly int isDeactivated = Animator.StringToHash("isDeactivated");
 
     void Start() {
         Application.targetFrameRate = 30;
@@ -75,6 +77,13 @@ public class PlayerMovement : MonoBehaviour {
         // reset Goomba
         foreach (Transform eachChild in enemies.transform) {
             eachChild.transform.position = eachChild.GetComponent<EnemyMovement>().enemyStartingPos;
+        }
+        // reset bricks and boxes
+        foreach (SpringJoint2D springJoint in bricksOrBoxes.GetComponentsInChildren<SpringJoint2D>()) {
+            springJoint.frequency = 5;
+        }
+        foreach (CoinGen coinGen in bricksOrBoxes.GetComponentsInChildren<CoinGen>()) {
+            coinGen.animator.SetBool(isDeactivated, false);
         }
 
         cam.position = new Vector3(0.0f, 0.2f, -10.0f);
@@ -151,7 +160,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.CompareTag("Ground")) {
+        if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("QBox") || col.gameObject.CompareTag("Brick")) {
             onGroundState = true;
             hasDoubleJumped = false;
             upSpeed = 30;
