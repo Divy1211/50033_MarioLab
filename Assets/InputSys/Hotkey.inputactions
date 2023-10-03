@@ -1,0 +1,40 @@
+{
+    "name": "Hotkey",
+    "maps": [
+        {
+            "name": "UiAction",
+            "id": "a30baaa9-7dea-4748-addd-93dc0dc4b8fb",
+            "actions": [
+                {
+                    "name": "Reset",
+                    "type": "Button",
+                    "id": "24633939-5a58-44b9-98b4-35e0a301dfa9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6226b2eb-a0e9-44c8-9415-623ed4cd2c09",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": []
+        }
+    ]
+}

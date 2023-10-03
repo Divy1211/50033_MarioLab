@@ -5,8 +5,19 @@ public class CameraController : MonoBehaviour {
     public Transform startLimit;
     public Transform endLimit;
 
-
     public float followSpeed = 2f;
+
+    private Vector3 startingPos;
+
+    private void OnReset() {
+        transform.position = startingPos;
+    }
+
+    void Start() {
+        startingPos = transform.position;
+
+        GameManager.resetEvent.AddListener(OnReset);
+    }
 
     private static float Clamp(float val, float start, float end) {
         return Mathf.Max(start, Mathf.Min(end, val));

@@ -462,7 +462,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 620686620}
+    m_TransformParent: {fileID: 2135737922}
     m_Modifications:
     - target: {fileID: 596361224858738585, guid: 57872dfcae09a7e418f3507a6a51d144, type: 3}
       propertyPath: m_LocalPosition.x
@@ -511,7 +511,7 @@ PrefabInstance:
     - target: {fileID: 3415898896552959717, guid: 57872dfcae09a7e418f3507a6a51d144, type: 3}
       propertyPath: jumpOverGoomba
       value: 
-      objectReference: {fileID: 1129359909}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1033,10 +1033,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1380533205}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: RestartButtonCallback
-        m_Mode: 3
+      - m_Target: {fileID: 1926829458}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1142,42 +1142,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610037304}
   m_CullTransparentMesh: 1
---- !u!1 &620686619
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 620686620}
-  m_Layer: 0
-  m_Name: BrickOrBox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &620686620
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 620686619}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1325715936}
-  - {fileID: 1883370152}
-  - {fileID: 1019949008}
-  - {fileID: 673657171}
-  - {fileID: 1473680137}
-  m_Father: {fileID: 1459473869}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &648497664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,7 +1283,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 620686620}
+    m_TransformParent: {fileID: 2135737922}
     m_Modifications:
     - target: {fileID: 1074704942837042930, guid: e1ea1ef2b7e52ef4186f4bfa62d526ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1368,7 +1332,7 @@ PrefabInstance:
     - target: {fileID: 6418838280468765159, guid: e1ea1ef2b7e52ef4186f4bfa62d526ca, type: 3}
       propertyPath: jumpOverGoomba
       value: 
-      objectReference: {fileID: 1129359909}
+      objectReference: {fileID: 0}
     - target: {fileID: 6976253024793086269, guid: e1ea1ef2b7e52ef4186f4bfa62d526ca, type: 3}
       propertyPath: m_Name
       value: BrickAnchor2
@@ -1462,6 +1426,7 @@ GameObject:
   - component: {fileID: 857395484}
   - component: {fileID: 857395486}
   - component: {fileID: 857395485}
+  - component: {fileID: 857395487}
   m_Layer: 5
   m_Name: ScoreTxt
   m_TagString: Untagged
@@ -1585,6 +1550,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857395483}
   m_CullTransparentMesh: 1
+--- !u!114 &857395487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857395483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a6bb417dcb5b541a76fb417ed08a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &895082548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,7 +1900,7 @@ PrefabInstance:
     - target: {fileID: 4374490012637560823, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
       propertyPath: bricksOrBoxes
       value: 
-      objectReference: {fileID: 620686619}
+      objectReference: {fileID: 0}
     - target: {fileID: 6005426890534678600, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.3778434
@@ -1964,10 +1941,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1731065096993648198, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3885924087811652001, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1380533209}
+    - targetCorrespondingSourceObject: {fileID: 3885924087811652001, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1380533210}
   m_SourcePrefab: {fileID: 100100000, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
 --- !u!1 &1083136506
 GameObject:
@@ -2006,17 +1990,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6005426890534678600, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
   m_PrefabInstance: {fileID: 1048258118}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1129359909 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1731065096993648198, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
-  m_PrefabInstance: {fileID: 1048258118}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce88f0140c34a6a9fb3eb7f484402c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1302660856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,7 +2080,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 620686620}
+    m_TransformParent: {fileID: 2135737922}
     m_Modifications:
     - target: {fileID: 1074704942837042930, guid: e1ea1ef2b7e52ef4186f4bfa62d526ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2152,7 +2125,7 @@ PrefabInstance:
     - target: {fileID: 6418838280468765159, guid: e1ea1ef2b7e52ef4186f4bfa62d526ca, type: 3}
       propertyPath: jumpOverGoomba
       value: 
-      objectReference: {fileID: 1129359909}
+      objectReference: {fileID: 0}
     - target: {fileID: 6976253024793086269, guid: e1ea1ef2b7e52ef4186f4bfa62d526ca, type: 3}
       propertyPath: m_Name
       value: BrickAnchor1
@@ -2167,17 +2140,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1074704942837042930, guid: e1ea1ef2b7e52ef4186f4bfa62d526ca, type: 3}
   m_PrefabInstance: {fileID: 1322454232}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1380533202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3885924087811652001, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+  m_PrefabInstance: {fileID: 1048258118}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1380533205 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4374490012637560823, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
   m_PrefabInstance: {fileID: 1048258118}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1380533202}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c482b1dd42f401f997497431a77dab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1380533209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380533202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 7804d6a74380ed24cb8e33ef49a244e3, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 57381c1b-c4bb-4c9e-8644-2564788a3ecf
+    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &1380533210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380533202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88483c9e869f7b74789e17621dbe19aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move:
+    m_PersistentCalls:
+      m_Calls: []
+  jump:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1444750382
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,6 +2219,7 @@ GameObject:
   - component: {fileID: 1444750383}
   - component: {fileID: 1444750385}
   - component: {fileID: 1444750384}
+  - component: {fileID: 1444750386}
   m_Layer: 5
   m_Name: ScoreTxt2
   m_TagString: Untagged
@@ -2312,6 +2343,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444750382}
   m_CullTransparentMesh: 1
+--- !u!114 &1444750386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444750382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a6bb417dcb5b541a76fb417ed08a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1459473868
 GameObject:
   m_ObjectHideFlags: 0
@@ -2343,7 +2386,6 @@ Transform:
   m_Children:
   - {fileID: 1603361316}
   - {fileID: 895082549}
-  - {fileID: 620686620}
   - {fileID: 2135737922}
   - {fileID: 221878780}
   m_Father: {fileID: 598447995}
@@ -2359,7 +2401,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 620686620}
+    m_TransformParent: {fileID: 2135737922}
     m_Modifications:
     - target: {fileID: 596361224858738585, guid: 57872dfcae09a7e418f3507a6a51d144, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2408,7 +2450,7 @@ PrefabInstance:
     - target: {fileID: 3415898896552959717, guid: 57872dfcae09a7e418f3507a6a51d144, type: 3}
       propertyPath: jumpOverGoomba
       value: 
-      objectReference: {fileID: 1129359909}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3040,10 +3082,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1380533205}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: RestartButtonCallback
-        m_Mode: 3
+      - m_Target: {fileID: 1926829458}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3211,6 +3253,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1074704942837042930, guid: e1ea1ef2b7e52ef4186f4bfa62d526ca, type: 3}
   m_PrefabInstance: {fileID: 739962121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1926829457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1926829459}
+  - component: {fileID: 1926829458}
+  - component: {fileID: 1926829460}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1926829458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926829457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f527f3069b2a28844bcac1757f9ab58c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1926829459
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926829457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.708616, y: 2.7226396, z: 0.5058719}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1926829460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926829457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89d507e1c6b24428b810312bc5afd4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2135737921
 GameObject:
   m_ObjectHideFlags: 0
@@ -3241,6 +3340,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 372205427}
+  - {fileID: 1325715936}
+  - {fileID: 1883370152}
+  - {fileID: 1019949008}
+  - {fileID: 673657171}
+  - {fileID: 1473680137}
   m_Father: {fileID: 1459473869}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2140383005
@@ -3249,7 +3353,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 620686620}
+    m_TransformParent: {fileID: 2135737922}
     m_Modifications:
     - target: {fileID: 596361224858738585, guid: 57872dfcae09a7e418f3507a6a51d144, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3298,7 +3402,7 @@ PrefabInstance:
     - target: {fileID: 3415898896552959717, guid: 57872dfcae09a7e418f3507a6a51d144, type: 3}
       propertyPath: jumpOverGoomba
       value: 
-      objectReference: {fileID: 1129359909}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3396,3 +3500,4 @@ SceneRoots:
   - {fileID: 1612363074}
   - {fileID: 917710208}
   - {fileID: 598447995}
+  - {fileID: 1926829459}
