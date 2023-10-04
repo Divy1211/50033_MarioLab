@@ -55,7 +55,6 @@ public class GameManager : MonoBehaviour {
         fastForwarded = true;
     }
 
-    // called from mario's dying animation
     public static void GameOver() {
         gameUi.SetActive(false);
         youDiedUi.SetActive(true);
@@ -72,11 +71,5 @@ public class GameManager : MonoBehaviour {
         GameObject canvas = GameObject.Find("/Canvas");
         gameUi = canvas.transform.GetChild(0).gameObject;
         youDiedUi = canvas.transform.GetChild(1).gameObject;
-
-        hotkey = new Hotkey();
-
-        hotkey.Enable();
-        hotkey.UiAction.Reset.performed += _ => OnReset();
-        hotkey.UiAction.FastForward.performed += _ => OnFastForward();
     }
 }
