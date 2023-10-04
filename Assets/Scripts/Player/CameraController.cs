@@ -5,18 +5,26 @@ public class CameraController : MonoBehaviour {
     public Transform startLimit;
     public Transform endLimit;
 
+    public AudioSource bkgMusicSrc;
+    public AudioSource deathMusicSrc;
+
     public float followSpeed = 2f;
 
     private Vector3 startingPos;
 
     private void OnReset() {
         transform.position = startingPos;
+        deathMusicSrc.Stop();
+        bkgMusicSrc.Play();
     }
 
     void Start() {
         startingPos = transform.position;
 
         GameManager.resetEvent.AddListener(OnReset);
+        GameManager.killPlayerEvent.AddListener(() => {
+            deathMusicSrc.Play();
+        });
     }
 
     private static float Clamp(float val, float start, float end) {

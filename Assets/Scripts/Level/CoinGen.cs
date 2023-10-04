@@ -13,11 +13,15 @@ public class CoinGen : MonoBehaviour {
         animator.SetBool(isDeactivated, false);
     }
 
-    private void Start() {
+    void Start() {
         GameManager.resetEvent.AddListener(OnReset);
     }
 
     void OnCollisionEnter2D(Collision2D col) {
+        if (!GameManager.playerAlive) {
+            return;
+        }
+
         if (col.gameObject.CompareTag("Coin") && !col.enabled) {
             audioSrc.PlayOneShot(audioSrc.clip);
             Destroy(col.gameObject);
@@ -27,6 +31,7 @@ public class CoinGen : MonoBehaviour {
                 gameObject.GetComponent<SpringJoint2D>().frequency = 0;
             }
         }
+
         // if a coin hits from below return also
         if (!spawnCoin || !col.enabled || (col.gameObject.CompareTag("Coin") && col.enabled)) {
             return;

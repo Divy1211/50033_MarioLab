@@ -35,6 +35,15 @@ public partial class @Hotkey: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FastForward"",
+                    ""type"": ""Button"",
+                    ""id"": ""69b9e741-5f1d-497f-8a4b-bd1c47659806"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -46,6 +55,17 @@ public partial class @Hotkey: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a19f98ef-082c-4cd6-92a5-e0a76e6d9b7f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FastForward"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -63,6 +83,7 @@ public partial class @Hotkey: IInputActionCollection2, IDisposable
         // UiAction
         m_UiAction = asset.FindActionMap("UiAction", throwIfNotFound: true);
         m_UiAction_Reset = m_UiAction.FindAction("Reset", throwIfNotFound: true);
+        m_UiAction_FastForward = m_UiAction.FindAction("FastForward", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -125,11 +146,13 @@ public partial class @Hotkey: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UiAction;
     private List<IUiActionActions> m_UiActionActionsCallbackInterfaces = new List<IUiActionActions>();
     private readonly InputAction m_UiAction_Reset;
+    private readonly InputAction m_UiAction_FastForward;
     public struct UiActionActions
     {
         private @Hotkey m_Wrapper;
         public UiActionActions(@Hotkey wrapper) { m_Wrapper = wrapper; }
         public InputAction @Reset => m_Wrapper.m_UiAction_Reset;
+        public InputAction @FastForward => m_Wrapper.m_UiAction_FastForward;
         public InputActionMap Get() { return m_Wrapper.m_UiAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -142,6 +165,9 @@ public partial class @Hotkey: IInputActionCollection2, IDisposable
             @Reset.started += instance.OnReset;
             @Reset.performed += instance.OnReset;
             @Reset.canceled += instance.OnReset;
+            @FastForward.started += instance.OnFastForward;
+            @FastForward.performed += instance.OnFastForward;
+            @FastForward.canceled += instance.OnFastForward;
         }
 
         private void UnregisterCallbacks(IUiActionActions instance)
@@ -149,6 +175,9 @@ public partial class @Hotkey: IInputActionCollection2, IDisposable
             @Reset.started -= instance.OnReset;
             @Reset.performed -= instance.OnReset;
             @Reset.canceled -= instance.OnReset;
+            @FastForward.started -= instance.OnFastForward;
+            @FastForward.performed -= instance.OnFastForward;
+            @FastForward.canceled -= instance.OnFastForward;
         }
 
         public void RemoveCallbacks(IUiActionActions instance)
@@ -178,5 +207,6 @@ public partial class @Hotkey: IInputActionCollection2, IDisposable
     public interface IUiActionActions
     {
         void OnReset(InputAction.CallbackContext context);
+        void OnFastForward(InputAction.CallbackContext context);
     }
 }

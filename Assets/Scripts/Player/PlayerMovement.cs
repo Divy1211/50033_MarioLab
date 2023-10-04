@@ -8,13 +8,11 @@ public class PlayerMovement : MonoBehaviour {
 
     public AudioSource audioSrc;
     public AudioClip jumpSfx;
-    public AudioClip deathSfx;
 
     public Animator marioAnimatior;
 
     private bool onGroundState = true;
     private bool hasDoubleJumped;
-    private bool marioAlive = true;
 
     private Vector3 marioStartingPos;
     private Rigidbody2D marioBody;
@@ -29,7 +27,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 dir = Vector2.zero;
 
     private void Jump() {
-        if(!marioAlive) {
+        if(!GameManager.playerAlive) {
             return;
         }
         if (onGroundState || !hasDoubleJumped) {
@@ -49,18 +47,29 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnReset() {
-        if(!marioAlive) {
+        if(!GameManager.playerAlive) {
             marioAnimatior.SetTrigger(onReset);
         }
         marioBody.transform.position = marioStartingPos;
         marioBody.velocity = Vector2.zero;
         marioBody.angularVelocity = 0.0f;
         marioSprite.flipX = false;
-        marioAlive = true;
+        GameManager.playerAlive = true;
         upSpeed = 30;
 
         audioSrc.Stop();
         audioSrc.Play();
+    }
+
+    private void KillMario() {
+        if (!GameManager.playerAlive) {
+            return;
+        }
+
+        GameManager.playerAlive = false;
+        marioAnimatior.Play("mario-die");
+        marioBody.velocity = Vector2.zero;
+        marioBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
     }
 
     void Start() {Application.targetFrameRate = 30;
@@ -72,6 +81,7 @@ public class PlayerMovement : MonoBehaviour {
         actionManager.move.AddListener(Move);
 
         GameManager.resetEvent.AddListener(OnReset);
+        GameManager.killPlayerEvent.AddListener(KillMario);
         marioStartingPos = marioBody.transform.position;
     }
 
@@ -112,14 +122,14 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update() {
-        if (!marioAlive) {
+        if (!GameManager.playerAlive) {
             return;
         }
         Animate();
     }
 
     void FixedUpdate() {
-        if(!marioAlive) {
+        if(!GameManager.playerAlive) {
             return;
         }
         KeepMoving();
@@ -130,18 +140,6 @@ public class PlayerMovement : MonoBehaviour {
             onGroundState = true;
             hasDoubleJumped = false;
             upSpeed = 30;
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.CompareTag("Enemy") && marioAlive) {
-            marioAlive = false;
-            marioAnimatior.Play("mario-die");
-            marioBody.velocity = Vector2.zero;
-            marioBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
-
-            audioSrc.Stop();
-            audioSrc.PlayOneShot(deathSfx);
         }
     }
 }

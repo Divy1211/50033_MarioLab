@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4847988862264892351}
   - component: {fileID: 7689831474357128667}
   - component: {fileID: 4374490012637560823}
-  - component: {fileID: 1731065096993648198}
   - component: {fileID: 3150919060359986295}
   - component: {fileID: 6567878684132892641}
+  - component: {fileID: 8802967730715945096}
+  - component: {fileID: 3261780616646386463}
   m_Layer: 8
   m_Name: Mario
   m_TagString: Player
@@ -31,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3885924087811652001}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.3778434, y: -2.902, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -178,37 +179,10 @@ MonoBehaviour:
   maxSpeed: 10
   upSpeed: 30
   deathImpulse: 30
-  scoreText: {fileID: 0}
-  scoreText2: {fileID: 0}
-  enemies: {fileID: 0}
-  jumpOverGoomba: {fileID: 1731065096993648198}
-  gameUi: {fileID: 0}
-  youDiedUi: {fileID: 0}
   audioSrc: {fileID: 3150919060359986295}
   jumpSfx: {fileID: 8300000, guid: bc5ca5e0703c54692a186434e1149ccd, type: 3}
   deathSfx: {fileID: 8300000, guid: 3a9c3269b45b1b54c99eef7ec41806e7, type: 3}
   marioAnimatior: {fileID: 6567878684132892641}
-  cam: {fileID: 0}
---- !u!114 &1731065096993648198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3885924087811652001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce88f0140c34a6a9fb3eb7f484402c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyLocation: {fileID: 0}
-  scoreText: {fileID: 0}
-  scoreText2: {fileID: 0}
-  boxSize: {x: 1, y: 8}
-  maxDistance: 2
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!82 &3150919060359986295
 AudioSource:
   m_ObjectHideFlags: 0
@@ -218,9 +192,9 @@ AudioSource:
   m_GameObject: {fileID: 3885924087811652001}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a396fb5db437f453d89c54963e7b9719, type: 3}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 863090539088284901, guid: 1a2ebf6c2fb4f1247a800ae114059159, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -326,3 +300,55 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8802967730715945096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885924087811652001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 7804d6a74380ed24cb8e33ef49a244e3, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 57381c1b-c4bb-4c9e-8644-2564788a3ecf
+    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &3261780616646386463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885924087811652001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88483c9e869f7b74789e17621dbe19aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move:
+    m_PersistentCalls:
+      m_Calls: []
+  jump:
+    m_PersistentCalls:
+      m_Calls: []

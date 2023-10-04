@@ -238,7 +238,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnCoin: 1
   animator: {fileID: 4995922722515558747}
-  jumpOverGoomba: {fileID: 1731065096993648198, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
   coinPrefab: {fileID: 8265850087960931134, guid: 9bb36552df434664c9738ac6995a72c1, type: 3}
   audioSrc: {fileID: 1116361127565541818}
 --- !u!82 &1116361127565541818
@@ -250,7 +249,7 @@ AudioSource:
   m_GameObject: {fileID: 741930069211517633}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2850174272774165020, guid: 1a2ebf6c2fb4f1247a800ae114059159, type: 2}
   m_audioClip: {fileID: 8300000, guid: d885ffc842af744d89f7d595ffcc176a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
