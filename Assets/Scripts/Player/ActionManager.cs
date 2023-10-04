@@ -16,8 +16,6 @@ public class ActionManager : MonoBehaviour {
           marioAction.Player.Movement.canceled += OnMovement;
 
           marioAction.Player.Jump.performed += OnJump;
-
-          marioAction.Player.Jump.performed += OnJump;
      }
 
      private void OnMovement(InputAction.CallbackContext ctx) {
@@ -26,9 +24,5 @@ public class ActionManager : MonoBehaviour {
 
      private void OnJump(InputAction.CallbackContext ctx) {
          jump.Invoke();
-     }
-
-     private void OnReset() {
-         GameManager.OnReset();
      }
 }
