@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 dir = Vector2.zero;
 
     private void Jump() {
-        if(!GameManager.playerAlive) {
+        if(GameManager.isGameInactive) {
             return;
         }
         if (onGroundState || !hasDoubleJumped) {
@@ -42,31 +42,31 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Move(Vector2 dir) {
+        if (GameManager.isGameInactive) {
+            return;
+        }
         this.dir = dir;
         FlipSprite(dir);
     }
 
     private void OnReset() {
-        if(!GameManager.playerAlive) {
+        if(GameManager.isGameInactive) {
             marioAnimatior.SetTrigger(onReset);
         }
         marioBody.transform.position = marioStartingPos;
-        marioBody.velocity = Vector2.zero;
+        marioBody.velocity = dir = Vector2.zero;
         marioBody.angularVelocity = 0.0f;
         marioSprite.flipX = false;
-        GameManager.playerAlive = true;
         upSpeed = 30;
 
-        audioSrc.Stop();
         audioSrc.Play();
     }
 
     private void KillMario() {
-        if (!GameManager.playerAlive) {
+        if (GameManager.isGameInactive) {
             return;
         }
 
-        GameManager.playerAlive = false;
         marioAnimatior.Play("mario-die");
         marioBody.velocity = Vector2.zero;
         marioBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
@@ -122,14 +122,14 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update() {
-        if (!GameManager.playerAlive) {
+        if (GameManager.isGameInactive) {
             return;
         }
         Animate();
     }
 
     void FixedUpdate() {
-        if(!GameManager.playerAlive) {
+        if(GameManager.isGameInactive) {
             return;
         }
         KeepMoving();

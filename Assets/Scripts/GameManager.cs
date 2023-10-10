@@ -10,10 +10,7 @@ public class GameManager : MonoBehaviour {
     public static GameObject gameUi;
     public static GameObject youDiedUi;
 
-    public static bool playerAlive = true;
-
     private static int _score;
-
     public static int score {
         get => _score;
         set {
@@ -22,37 +19,52 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public static bool isGameInactive => isPaused || !isPlayerAlive;
+
     private static Hotkey hotkey;
     private static AudioMixer masterMixer;
-    private static bool fastForwarded;
+
+    private static bool isPlayerAlive = true;
+    private static bool isPaused;
+    private static bool isFastForwarded;
 
     public static void OnReset() {
+        AudioListener.pause = false;
+        isPaused = false;
+
+        resetEvent.Invoke();
+
         gameUi.SetActive(true);
         youDiedUi.SetActive(false);
+
         score = 0;
+        isPlayerAlive = true;
 
         GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
         foreach (GameObject coin in coins) {
             Destroy(coin);
         }
 
-        resetEvent.Invoke();
-
-        Time.timeScale = fastForwarded ? 2.0f : 1.0f;
+        Time.timeScale = isFastForwarded ? 2.0f : 1.0f;
     }
 
     public static void OnFastForward() {
-        if (fastForwarded) {
-            Time.timeScale = 1.0f;
-            masterMixer.SetFloat("musicPitch", 1);
-            masterMixer.SetFloat("musicSpeed", 1);
-            fastForwarded = false;
+        if (isGameInactive) {
             return;
         }
-        Time.timeScale = 2.0f;
-        masterMixer.SetFloat("musicPitch", 2);
-        masterMixer.SetFloat("musicSpeed", 2);
-        fastForwarded = true;
+        Time.timeScale = isFastForwarded ? 1.0f : 2.0f;
+        masterMixer.SetFloat("musicPitch", isFastForwarded ? 1.0f : 2.0f);
+        masterMixer.SetFloat("musicSpeed", isFastForwarded ? 1.0f : 2.0f);
+        isFastForwarded = !isFastForwarded;
+    }
+
+    public static void OnPause() {
+        if (!isPlayerAlive) {
+            return;
+        }
+        AudioListener.pause = !isPaused;
+        Time.timeScale = isPaused ? isFastForwarded ? 2.0f : 1.0f : 0.0f;
+        isPaused = !isPaused;
     }
 
     public static void GameOver() {
@@ -71,5 +83,9 @@ public class GameManager : MonoBehaviour {
         GameObject canvas = GameObject.Find("/Canvas");
         gameUi = canvas.transform.GetChild(0).gameObject;
         youDiedUi = canvas.transform.GetChild(1).gameObject;
+    }
+
+    void Start() {
+        killPlayerEvent.AddListener(() => isPlayerAlive = false);
     }
 }

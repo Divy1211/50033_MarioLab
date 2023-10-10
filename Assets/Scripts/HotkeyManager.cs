@@ -9,6 +9,7 @@ public class HotkeyManager : MonoBehaviour {
         hotkey.Enable();
         hotkey.UiAction.Reset.performed += _ => GameManager.OnReset();
         hotkey.UiAction.FastForward.performed += _ => GameManager.OnFastForward();
+        hotkey.UiAction.Pause.performed += _ => GameManager.OnPause();
     }
 
 }

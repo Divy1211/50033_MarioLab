@@ -12,13 +12,12 @@ public class CoinGen : MonoBehaviour {
         gameObject.GetComponent<SpringJoint2D>().frequency = 5;
         animator.SetBool(isDeactivated, false);
     }
-
     void Start() {
         GameManager.resetEvent.AddListener(OnReset);
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        if (!GameManager.playerAlive) {
+        if (GameManager.isGameInactive) {
             return;
         }
 

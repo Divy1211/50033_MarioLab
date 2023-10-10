@@ -45,7 +45,7 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        if (!GameManager.playerAlive || !col.gameObject.CompareTag("Player")) {
+        if (GameManager.isGameInactive || !col.gameObject.CompareTag("Player")) {
             return;
         }
         if(!col.enabled) {
