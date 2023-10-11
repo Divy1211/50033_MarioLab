@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour {
     public static GameObject gameUi;
     public static GameObject youDiedUi;
     public static GameObject pausedUi;
-    public static GameObject mainMenuUi;
     public static GameObject loadingUi;
     public static ParticleSystem particleSys;
 
@@ -36,6 +35,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private static int startLives = lives;
+
     private static Hotkey hotkey;
     private static AudioMixer masterMixer;
     private static AudioSource musicSrc;
@@ -52,6 +53,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public static void OnReset() {
+        if (isPlayerAlive) {
+            lives = startLives;
+        } else {
+            startLives = lives;
+        }
+
         musicSrc.Play();
         isPaused = false;
 
@@ -142,7 +149,6 @@ public class GameManager : MonoBehaviour {
             youDiedUi = ui.transform.GetChild(1).gameObject;
             pausedUi = ui.transform.GetChild(2).gameObject;
         } else {
-            mainMenuUi = ui.transform.GetChild(0).gameObject;
             loadingUi = ui.transform.GetChild(1).gameObject;
         }
 
@@ -150,6 +156,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
+        startLives = lives;
         playerHitEvent.AddListener(isDead => isPlayerAlive = !isDead);
     }
 }

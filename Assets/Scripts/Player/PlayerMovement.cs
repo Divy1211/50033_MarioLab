@@ -90,6 +90,7 @@ public class PlayerMovement : MonoBehaviour {
         marioAnimatior.Play("mario-die");
         marioBody.velocity = Vector2.zero;
         marioBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
+        --GameManager.lives;
     }
 
     private void OnPause(bool paused) {
@@ -186,6 +187,7 @@ public class PlayerMovement : MonoBehaviour {
         if (col.gameObject.CompareTag("OneUpShroom")) {
             audioSrc.PlayOneShot(lifeSfx);
             ++GameManager.lives;
+            GameManager.updateScoreEvent.Invoke();
         }
     }
 }
