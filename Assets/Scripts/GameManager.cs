@@ -1,14 +1,31 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
+    public bool mainMenu;
+
     public static UnityEvent updateScoreEvent;
     public static UnityEvent resetEvent;
-    public static UnityEvent killPlayerEvent;
+    public static UnityEvent<bool> playerHitEvent;
+    public static UnityEvent<bool> pauseEvent;
 
     public static GameObject gameUi;
     public static GameObject youDiedUi;
+    public static GameObject pausedUi;
+    public static GameObject mainMenuUi;
+    public static GameObject loadingUi;
+    public static ParticleSystem particleSys;
+
+    public static int lives = 3;
+    public static bool isSuperMario;
+    public static bool isUnkillable;
+    public static bool isGameInactive => isPaused || !isPlayerAlive;
+    public static GameStats stats;
+
+    public GameStats _Stats;
 
     private static int _score;
     public static int score {
@@ -19,17 +36,23 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public static bool isGameInactive => isPaused || !isPlayerAlive;
-
     private static Hotkey hotkey;
     private static AudioMixer masterMixer;
+    private static AudioSource musicSrc;
 
     private static bool isPlayerAlive = true;
     private static bool isPaused;
     private static bool isFastForwarded;
 
+    private static void DestroyAllWithTag(string tag) {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
+        foreach (GameObject obj in objs) {
+            Destroy(obj);
+        }
+    }
+
     public static void OnReset() {
-        AudioListener.pause = false;
+        musicSrc.Play();
         isPaused = false;
 
         resetEvent.Invoke();
@@ -39,11 +62,11 @@ public class GameManager : MonoBehaviour {
 
         score = 0;
         isPlayerAlive = true;
+        isSuperMario = false;
 
-        GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
-        foreach (GameObject coin in coins) {
-            Destroy(coin);
-        }
+        DestroyAllWithTag("Coin");
+        DestroyAllWithTag("SuperShroom");
+        DestroyAllWithTag("OneUpShroom");
 
         Time.timeScale = isFastForwarded ? 2.0f : 1.0f;
     }
@@ -62,9 +85,30 @@ public class GameManager : MonoBehaviour {
         if (!isPlayerAlive) {
             return;
         }
-        AudioListener.pause = !isPaused;
-        Time.timeScale = isPaused ? isFastForwarded ? 2.0f : 1.0f : 0.0f;
         isPaused = !isPaused;
+        gameUi.SetActive(!isPaused);
+        pausedUi.SetActive(isPaused);
+        if (isPaused) {
+            musicSrc.Pause();
+        } else {
+            musicSrc.UnPause();
+        }
+        Time.timeScale = !isPaused ? isFastForwarded ? 2.0f : 1.0f : 0.0f;
+        pauseEvent.Invoke(isPaused);
+    }
+
+    public static void OnHighScoreReset() {
+        stats.highScore = 0;
+        updateScoreEvent.Invoke();
+    }
+
+    public static void StartGame() {
+        SceneManager.LoadSceneAsync("W1-1", LoadSceneMode.Single);
+        loadingUi.SetActive(true);
+    }
+
+    public static void BackToMenu() {
+        SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Single);
     }
 
     public static void GameOver() {
@@ -73,19 +117,39 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0.0f;
     }
 
+    public static IEnumerator MakeKillable() {
+        yield return new WaitForSeconds(1f);
+        isUnkillable = false;
+    }
+
     void Awake() {
         updateScoreEvent = new UnityEvent();
         resetEvent = new UnityEvent();
-        killPlayerEvent = new UnityEvent();
+        playerHitEvent = new UnityEvent<bool>();
+        pauseEvent = new UnityEvent<bool>();
+
+        updateScoreEvent.AddListener(() => stats.highScore = Mathf.Max(stats.highScore, score));
 
         masterMixer = GetComponent<AudioSource>().outputAudioMixerGroup.audioMixer;
 
-        GameObject canvas = GameObject.Find("/Canvas");
-        gameUi = canvas.transform.GetChild(0).gameObject;
-        youDiedUi = canvas.transform.GetChild(1).gameObject;
+        GameObject cardinal = GameObject.Find("/Cardinal");
+        particleSys = cardinal.transform.GetChild(0).GetComponent<ParticleSystem>();
+        musicSrc = cardinal.transform.GetChild(2).GetComponent<AudioSource>();
+
+        GameObject ui = GameObject.Find("/UI");
+        if(!mainMenu) {
+            gameUi = ui.transform.GetChild(0).gameObject;
+            youDiedUi = ui.transform.GetChild(1).gameObject;
+            pausedUi = ui.transform.GetChild(2).gameObject;
+        } else {
+            mainMenuUi = ui.transform.GetChild(0).gameObject;
+            loadingUi = ui.transform.GetChild(1).gameObject;
+        }
+
+        stats = _Stats;
     }
 
     void Start() {
-        killPlayerEvent.AddListener(() => isPlayerAlive = false);
+        playerHitEvent.AddListener(isDead => isPlayerAlive = !isDead);
     }
 }

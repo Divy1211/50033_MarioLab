@@ -22,7 +22,10 @@ public class CameraController : MonoBehaviour {
         startingPos = transform.position;
 
         GameManager.resetEvent.AddListener(OnReset);
-        GameManager.killPlayerEvent.AddListener(() => {
+        GameManager.playerHitEvent.AddListener(isDead => {
+            if(!isDead) {
+                return;
+            }
             deathMusicSrc.Play();
         });
     }

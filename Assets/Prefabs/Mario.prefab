@@ -175,13 +175,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c482b1dd42f401f997497431a77dab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 150
-  maxSpeed: 10
-  upSpeed: 30
-  deathImpulse: 30
+  consts: {fileID: 11400000, guid: d632b1bc49553a4479fb3683544e3157, type: 2}
   audioSrc: {fileID: 3150919060359986295}
   jumpSfx: {fileID: 8300000, guid: bc5ca5e0703c54692a186434e1149ccd, type: 3}
-  deathSfx: {fileID: 8300000, guid: 3a9c3269b45b1b54c99eef7ec41806e7, type: 3}
+  jumpSuperSfx: {fileID: 8300000, guid: 7988561719a0c40049ae5a3c2870d1e7, type: 3}
+  superSfx: {fileID: 8300000, guid: 26301d2e86e99420599e315297a825df, type: 3}
+  dmgSfx: {fileID: 8300000, guid: b520e6b32619c490a934225b9b162dc2, type: 3}
+  lifeSfx: {fileID: 8300000, guid: cdc43de50f4574c75afcc7e74975b29a, type: 3}
+  pauseSfx: {fileID: 8300000, guid: 5aec150c938c24103aaf3606c480427c, type: 3}
   marioAnimatior: {fileID: 6567878684132892641}
 --- !u!82 &3150919060359986295
 AudioSource:

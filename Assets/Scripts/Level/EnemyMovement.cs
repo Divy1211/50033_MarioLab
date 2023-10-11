@@ -4,8 +4,10 @@ public class EnemyMovement : MonoBehaviour {
     public Animator goombaAnimatior;
     public AudioSource audioSrc;
 
-    private const float MaxOffset = 5.0f;
-    private const float EnemyPatrolTime = 4.0f;
+    public GameConstant consts;
+
+    private float maxOffset = 5.0f;
+    private float patrolTime = 4.0f;
 
     // private Vector2 velocity;
     private Rigidbody2D goombaBody;
@@ -15,7 +17,7 @@ public class EnemyMovement : MonoBehaviour {
 
     private void OnReset() {
         goombaBody.position = startingPos;
-        goombaBody.velocity = Vector2.left * MaxOffset/EnemyPatrolTime;
+        goombaBody.velocity = Vector2.left * maxOffset/patrolTime;
         goombaSprite.enabled = true;
         goombaCollider.enabled = true;
         goombaAnimatior.enabled = true;
@@ -29,31 +31,36 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     void Start() {
+        maxOffset = consts.goombaMaxOffset;
+        patrolTime = consts.goombaPatrolTime;
+
         goombaBody = GetComponent<Rigidbody2D>();
         goombaSprite = GetComponent<SpriteRenderer>();
         goombaCollider = GetComponent<BoxCollider2D>();
         startingPos = goombaBody.position;
-        goombaBody.velocity = Vector2.left * MaxOffset/EnemyPatrolTime;
+        goombaBody.velocity = Vector2.left * maxOffset/patrolTime;
 
         GameManager.resetEvent.AddListener(OnReset);
     }
 
     void FixedUpdate() {
-        if (Mathf.Abs(goombaBody.position.x - startingPos.x) >= MaxOffset) {
+        if (Mathf.Abs(goombaBody.position.x - startingPos.x) >= maxOffset) {
             goombaBody.velocity *= -1;
         }
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        if (GameManager.isGameInactive || !col.gameObject.CompareTag("Player")) {
+        if (GameManager.isUnkillable || GameManager.isGameInactive || !col.gameObject.CompareTag("Player")) {
             return;
         }
         if(!col.enabled) {
-            GameManager.killPlayerEvent.Invoke();
+            GameManager.playerHitEvent.Invoke(!GameManager.isSuperMario);
+            GameManager.isUnkillable = true;
+            StartCoroutine(GameManager.MakeKillable());
             return;
         }
 
-        GameManager.score++;
+        ++GameManager.score;
         goombaBody.velocity = Vector2.zero;
         goombaCollider.enabled = false;
         goombaAnimatior.Play("goomba-die");
