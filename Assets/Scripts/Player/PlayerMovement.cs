@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour {
     private bool onGroundState = true;
     private bool hasDoubleJumped;
 
-    private Vector3 marioStartingPos;
     private Rigidbody2D marioBody;
     private SpriteRenderer marioSprite;
 
@@ -62,7 +61,7 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         SetSize(1.0f);
-        marioBody.transform.position = marioStartingPos;
+        marioBody.transform.position = consts.marioStartingPosition;
         marioBody.velocity = dir = Vector2.zero;
         marioBody.angularVelocity = 0.0f;
         marioSprite.flipX = false;
@@ -119,7 +118,6 @@ public class PlayerMovement : MonoBehaviour {
         GameManager.resetEvent.AddListener(OnReset);
         GameManager.playerHitEvent.AddListener(KillMario);
         GameManager.pauseEvent.AddListener(OnPause);
-        marioStartingPos = marioBody.transform.position;
     }
 
     private void FlipSprite(Vector2 dir) {
