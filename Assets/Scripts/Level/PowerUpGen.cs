@@ -17,15 +17,14 @@ public class PowerUpGen : MonoBehaviour {
 
     private static readonly int isDeactivated = Animator.StringToHash("isDeactivated");
 
-    private void OnReset() {
+    public void OnReset(object _) {
         transform.parent.gameObject.SetActive(true);
         springJoint.frequency = 5;
         animator.SetBool(isDeactivated, false);
         edgeTop.SetActive(true);
         edgeBot.SetActive(true);
     }
-    void Start() {
-        GameManager.resetEvent.AddListener(OnReset);
+    private void Start() {
 
         springJoint = GetComponent<SpringJoint2D>();
         animator = GetComponent<Animator>();
@@ -62,7 +61,7 @@ public class PowerUpGen : MonoBehaviour {
         springJoint.frequency = 0;
     }
 
-    void OnCollisionEnter2D(Collision2D col) {
+    private void OnCollisionEnter2D(Collision2D col) {
         if (GameManager.isGameInactive) {
             return;
         }

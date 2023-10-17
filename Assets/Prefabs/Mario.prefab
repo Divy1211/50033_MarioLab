@@ -12,11 +12,12 @@ GameObject:
   - component: {fileID: 1102236944177342032}
   - component: {fileID: 4847988862264892351}
   - component: {fileID: 7689831474357128667}
-  - component: {fileID: 4374490012637560823}
   - component: {fileID: 3150919060359986295}
   - component: {fileID: 6567878684132892641}
+  - component: {fileID: 4374490012637560823}
   - component: {fileID: 8802967730715945096}
   - component: {fileID: 3261780616646386463}
+  - component: {fileID: 5208849118827623739}
   m_Layer: 8
   m_Name: Mario
   m_TagString: Player
@@ -163,27 +164,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4374490012637560823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3885924087811652001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c482b1dd42f401f997497431a77dab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  consts: {fileID: 11400000, guid: d632b1bc49553a4479fb3683544e3157, type: 2}
-  audioSrc: {fileID: 3150919060359986295}
-  jumpSfx: {fileID: 8300000, guid: bc5ca5e0703c54692a186434e1149ccd, type: 3}
-  jumpSuperSfx: {fileID: 8300000, guid: 7988561719a0c40049ae5a3c2870d1e7, type: 3}
-  superSfx: {fileID: 8300000, guid: 26301d2e86e99420599e315297a825df, type: 3}
-  dmgSfx: {fileID: 8300000, guid: b520e6b32619c490a934225b9b162dc2, type: 3}
-  lifeSfx: {fileID: 8300000, guid: cdc43de50f4574c75afcc7e74975b29a, type: 3}
-  pauseSfx: {fileID: 8300000, guid: 5aec150c938c24103aaf3606c480427c, type: 3}
-  marioAnimatior: {fileID: 6567878684132892641}
 --- !u!82 &3150919060359986295
 AudioSource:
   m_ObjectHideFlags: 0
@@ -301,6 +281,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4374490012637560823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885924087811652001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c482b1dd42f401f997497431a77dab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  consts: {fileID: 11400000, guid: d632b1bc49553a4479fb3683544e3157, type: 2}
+  audioSrc: {fileID: 3150919060359986295}
+  jumpSfx: {fileID: 8300000, guid: bc5ca5e0703c54692a186434e1149ccd, type: 3}
+  jumpSuperSfx: {fileID: 8300000, guid: 7988561719a0c40049ae5a3c2870d1e7, type: 3}
+  superSfx: {fileID: 8300000, guid: 26301d2e86e99420599e315297a825df, type: 3}
+  dmgSfx: {fileID: 8300000, guid: b520e6b32619c490a934225b9b162dc2, type: 3}
+  lifeSfx: {fileID: 8300000, guid: cdc43de50f4574c75afcc7e74975b29a, type: 3}
+  pauseSfx: {fileID: 8300000, guid: 5aec150c938c24103aaf3606c480427c, type: 3}
+  marioAnimatior: {fileID: 6567878684132892641}
 --- !u!114 &8802967730715945096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,3 +354,31 @@ MonoBehaviour:
   jump:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5208849118827623739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885924087811652001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2bd15d5f1bd46fe97e10eff78c4cff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  event: {fileID: 11400000, guid: 62da0d0dd1129cc4b988f40656140354, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4374490012637560823}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

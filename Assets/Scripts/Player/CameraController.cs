@@ -12,16 +12,15 @@ public class CameraController : MonoBehaviour {
 
     private Vector3 startingPos;
 
-    private void OnReset() {
+    public void OnReset(object _) {
         transform.position = startingPos;
         deathMusicSrc.Stop();
         bkgMusicSrc.Play();
     }
 
-    void Start() {
+    private void Start() {
         startingPos = transform.position;
 
-        GameManager.resetEvent.AddListener(OnReset);
         GameManager.playerHitEvent.AddListener(isDead => {
             if(!isDead) {
                 return;
@@ -34,7 +33,7 @@ public class CameraController : MonoBehaviour {
         return Mathf.Max(start, Mathf.Min(end, val));
     }
 
-    void Update() {
+    private void Update() {
         Vector3 pos = player.position;
         Vector3 startPos = startLimit.transform.position;
         Vector3 endPos = endLimit.transform.position;

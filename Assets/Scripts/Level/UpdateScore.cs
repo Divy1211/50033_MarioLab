@@ -7,21 +7,22 @@ public class UpdateScore : MonoBehaviour {
 
     private TextMeshProUGUI scoreText;
 
-    private void OnScoreChange() {
+    public void OnScoreChange(object _) {
         if (isLife) {
             scoreText.text = "Lives: " + GameManager.lives;
             return;
         }
+
         if (isHighscore) {
             scoreText.text = "Top Score: " + GameManager.stats.highScore;
             return;
         }
+
         scoreText.text = "Score: " + GameManager.score;
     }
 
-    void Start() {
+    private void OnEnable() {
         scoreText = GetComponent<TextMeshProUGUI>();
-        GameManager.updateScoreEvent.AddListener(OnScoreChange);
-        OnScoreChange();
+        OnScoreChange(null);
     }
 }

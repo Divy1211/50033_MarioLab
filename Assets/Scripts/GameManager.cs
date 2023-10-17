@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
     public bool mainMenu;
 
-    public static UnityEvent updateScoreEvent;
-    public static UnityEvent resetEvent;
     public static UnityEvent<bool> playerHitEvent;
     public static UnityEvent<bool> pauseEvent;
 
@@ -18,20 +16,33 @@ public class GameManager : MonoBehaviour {
     public static GameObject loadingUi;
     public static ParticleSystem particleSys;
 
-    public static int lives = 3;
     public static bool isSuperMario;
     public static bool isUnkillable;
     public static bool isGameInactive => isPaused || !isPlayerAlive;
     public static GameStats stats;
+    public static GameEvent ResetEvent;
+    public static GameEvent UpdateScoreEvent;
 
     public GameStats _Stats;
+    public GameEvent _ResetEvent;
+    public GameEvent _UpdateScoreEvent;
+
+    private static int _lives = 3;
+    public static int lives {
+        get => _lives;
+        set {
+            _lives = value;
+            UpdateScoreEvent.Raise(null);
+        }
+    }
 
     private static int _score;
     public static int score {
         get => _score;
         set {
             _score = value;
-            updateScoreEvent.Invoke();
+            stats.highScore = Mathf.Max(stats.highScore, _score);
+            UpdateScoreEvent.Raise(null);
         }
     }
 
@@ -62,7 +73,7 @@ public class GameManager : MonoBehaviour {
         musicSrc.Play();
         isPaused = false;
 
-        resetEvent.Invoke();
+        ResetEvent.Raise(null);
 
         gameUi.SetActive(true);
         youDiedUi.SetActive(false);
@@ -106,7 +117,7 @@ public class GameManager : MonoBehaviour {
 
     public static void OnHighScoreReset() {
         stats.highScore = 0;
-        updateScoreEvent.Invoke();
+        UpdateScoreEvent.Raise(null);
     }
 
     public static void StartGame() {
@@ -130,12 +141,8 @@ public class GameManager : MonoBehaviour {
     }
 
     void Awake() {
-        updateScoreEvent = new UnityEvent();
-        resetEvent = new UnityEvent();
         playerHitEvent = new UnityEvent<bool>();
         pauseEvent = new UnityEvent<bool>();
-
-        updateScoreEvent.AddListener(() => stats.highScore = Mathf.Max(stats.highScore, score));
 
         masterMixer = GetComponent<AudioSource>().outputAudioMixerGroup.audioMixer;
 
@@ -153,6 +160,8 @@ public class GameManager : MonoBehaviour {
         }
 
         stats = _Stats;
+        ResetEvent = _ResetEvent;
+        UpdateScoreEvent = _UpdateScoreEvent;
     }
 
     void Start() {

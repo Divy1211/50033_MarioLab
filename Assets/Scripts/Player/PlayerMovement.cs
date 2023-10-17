@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour {
         FlipSprite(dir);
     }
 
-    private void OnReset() {
+    public void OnReset(object _) {
         if(GameManager.isGameInactive) {
             marioAnimatior.SetTrigger(onReset);
         }
@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour {
         audioSrc.PlayOneShot(pauseSfx);
     }
 
-    void Start() {
+    private void Start() {
         Application.targetFrameRate = 30;
 
         speed = consts.speed;
@@ -115,7 +115,6 @@ public class PlayerMovement : MonoBehaviour {
         actionManager.jump.AddListener(Jump);
         actionManager.move.AddListener(Move);
 
-        GameManager.resetEvent.AddListener(OnReset);
         GameManager.playerHitEvent.AddListener(KillMario);
         GameManager.pauseEvent.AddListener(OnPause);
     }
@@ -156,21 +155,21 @@ public class PlayerMovement : MonoBehaviour {
         GameManager.GameOver();
     }
 
-    void Update() {
+    private void Update() {
         if (GameManager.isGameInactive) {
             return;
         }
         Animate();
     }
 
-    void FixedUpdate() {
+    private void FixedUpdate() {
         if(GameManager.isGameInactive) {
             return;
         }
         KeepMoving();
     }
 
-    void OnCollisionEnter2D(Collision2D col) {
+    private void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("QBox") || col.gameObject.CompareTag("Brick")) {
             onGroundState = true;
             hasDoubleJumped = false;
@@ -185,7 +184,6 @@ public class PlayerMovement : MonoBehaviour {
         if (col.gameObject.CompareTag("OneUpShroom")) {
             audioSrc.PlayOneShot(lifeSfx);
             ++GameManager.lives;
-            GameManager.updateScoreEvent.Invoke();
         }
     }
 }

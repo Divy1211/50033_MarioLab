@@ -15,7 +15,7 @@ public class EnemyMovement : MonoBehaviour {
     private BoxCollider2D goombaCollider;
     private Vector2 startingPos;
 
-    private void OnReset() {
+    public void OnReset(object _) {
         goombaBody.position = startingPos;
         goombaBody.velocity = Vector2.left * maxOffset/patrolTime;
         goombaSprite.enabled = true;
@@ -30,7 +30,7 @@ public class EnemyMovement : MonoBehaviour {
         goombaSprite.enabled = false;
     }
 
-    void Start() {
+    private void Start() {
         maxOffset = consts.goombaMaxOffset;
         patrolTime = consts.goombaPatrolTime;
 
@@ -39,17 +39,15 @@ public class EnemyMovement : MonoBehaviour {
         goombaCollider = GetComponent<BoxCollider2D>();
         startingPos = goombaBody.position;
         goombaBody.velocity = Vector2.left * maxOffset/patrolTime;
-
-        GameManager.resetEvent.AddListener(OnReset);
     }
 
-    void FixedUpdate() {
+    private void FixedUpdate() {
         if (Mathf.Abs(goombaBody.position.x - startingPos.x) >= maxOffset) {
             goombaBody.velocity *= -1;
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col) {
+    private void OnCollisionEnter2D(Collision2D col) {
         if (GameManager.isUnkillable || GameManager.isGameInactive || !col.gameObject.CompareTag("Player")) {
             return;
         }
