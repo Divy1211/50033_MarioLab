@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1074704942837042930}
   - component: {fileID: 8148336277537708818}
   - component: {fileID: 4163958543455256343}
+  - component: {fileID: 4994116713855069452}
   m_Layer: 0
   m_Name: BrickAnchor1
   m_TagString: Brick
@@ -158,6 +159,34 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4994116713855069452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976253024793086269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2bd15d5f1bd46fe97e10eff78c4cff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  event: {fileID: 11400000, guid: 62da0d0dd1129cc4b988f40656140354, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6418838280468765159}
+        m_TargetAssemblyTypeName: PowerUpGen, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7770893284655275731
 GameObject:
   m_ObjectHideFlags: 0

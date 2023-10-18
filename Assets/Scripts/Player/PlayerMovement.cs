@@ -196,8 +196,8 @@ public class PlayerMovement : MonoBehaviour {
             }
             case "FireFlower": {
                 GetComponent<MarioStateController>().SetPowerup(PowerupType.FireFlower);
+                LiveState.isFireMario = LiveState.isSuperMario;
                 LiveState.isSuperMario = true;
-                LiveState.isFireMario = true;
                 audioSrc.PlayOneShot(superSfx);
                 break;
             }

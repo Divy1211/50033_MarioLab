@@ -73,6 +73,7 @@ public class LiveState : MonoBehaviour {
         DestroyAllWithTag("OneUpShroom");
         DestroyAllWithTag("FireFlower");
         DestroyAllWithTag("StarMan");
+        DestroyAllWithTag("Fireball");
 
         Time.timeScale = isFastForwarded ? 2.0f : 1.0f;
     }

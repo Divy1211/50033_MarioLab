@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3819914696954623006}
   - component: {fileID: 4995922722515558747}
   - component: {fileID: 3415898896552959717}
-  - component: {fileID: 4003255721240078516}
   m_Layer: 0
   m_Name: EdgeBottom
   m_TagString: QBox
@@ -242,34 +241,6 @@ MonoBehaviour:
   oneUpShroomPrefab: {fileID: 8265850087960931134, guid: edd6b524cacb19f47847d9cdf3b26a17, type: 3}
   starManPrefab: {fileID: 8265850087960931134, guid: e9bb5f9cb39d4d346b65dfeb46f6d3f0, type: 3}
   superShroomPrefab: {fileID: 8265850087960931134, guid: 3ec2600758b4b074db864661988ce194, type: 3}
---- !u!114 &4003255721240078516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 741930069211517633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2bd15d5f1bd46fe97e10eff78c4cff0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  event: {fileID: 11400000, guid: 62da0d0dd1129cc4b988f40656140354, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3415898896552959717}
-        m_TargetAssemblyTypeName: PowerUpGen, Assembly-CSharp
-        m_MethodName: OnReset
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &2804906688738852675
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +252,7 @@ GameObject:
   - component: {fileID: 596361224858738585}
   - component: {fileID: 1952444317059945092}
   - component: {fileID: 5907289996897617173}
+  - component: {fileID: 43464562775053641}
   m_Layer: 0
   m_Name: QuestionBox1
   m_TagString: QBox
@@ -428,6 +400,34 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &43464562775053641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2804906688738852675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2bd15d5f1bd46fe97e10eff78c4cff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  event: {fileID: 11400000, guid: 62da0d0dd1129cc4b988f40656140354, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3415898896552959717}
+        m_TargetAssemblyTypeName: PowerUpGen, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4032697294787128546
 GameObject:
   m_ObjectHideFlags: 0
