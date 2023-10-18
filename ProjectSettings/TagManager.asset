@@ -11,6 +11,9 @@ TagManager:
   - Coin
   - OneUpShroom
   - SuperShroom
+  - FireFlower
+  - Fireball
+  - StarMan
   layers:
   - Default
   - TransparentFX
@@ -23,7 +26,7 @@ TagManager:
   - Player
   - PowerUp
   - Interactive
-  - 
+  - Fireball
   - 
   - 
   - 

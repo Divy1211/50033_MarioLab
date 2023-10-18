@@ -238,8 +238,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUp: 1
   coinPrefab: {fileID: 8265850087960931134, guid: 9bb36552df434664c9738ac6995a72c1, type: 3}
-  superShroomPrefab: {fileID: 8265850087960931134, guid: 3ec2600758b4b074db864661988ce194, type: 3}
+  fireFlowerPrefab: {fileID: 8265850087960931134, guid: ac4af8590af7c7141a21f9459d20d45f, type: 3}
   oneUpShroomPrefab: {fileID: 8265850087960931134, guid: edd6b524cacb19f47847d9cdf3b26a17, type: 3}
+  starManPrefab: {fileID: 8265850087960931134, guid: e9bb5f9cb39d4d346b65dfeb46f6d3f0, type: 3}
+  superShroomPrefab: {fileID: 8265850087960931134, guid: 3ec2600758b4b074db864661988ce194, type: 3}
 --- !u!114 &4003255721240078516
 MonoBehaviour:
   m_ObjectHideFlags: 0

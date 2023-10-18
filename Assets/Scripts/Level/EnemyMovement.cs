@@ -48,13 +48,13 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D col) {
-        if (LiveState.isUnkillable || LiveState.isGameInactive || !col.gameObject.CompareTag("Player")) {
+        if (LiveState.isUnkillable || LiveState.isGameInactive || !(col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Fireball"))) {
             return;
         }
-        if(!col.enabled) {
+        if(!col.enabled && !col.gameObject.CompareTag("Fireball") && !LiveState.isStarman) {
             Event.PlayerHit.Raise(!LiveState.isSuperMario);
             LiveState.isUnkillable = true;
-            StartCoroutine(LiveState.MakeKillable());
+            StartCoroutine(LiveState.MakeKillable(1f));
             return;
         }
 

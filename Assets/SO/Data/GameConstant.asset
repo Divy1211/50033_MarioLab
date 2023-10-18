@@ -18,5 +18,6 @@ MonoBehaviour:
   upSpeed: 30
   deathImpulse: 30
   marioStartingPosition: {x: -5.34, y: -2.902, z: 0}
+  flickerInterval: 0.2
   goombaPatrolTime: 5
   goombaMaxOffset: 4

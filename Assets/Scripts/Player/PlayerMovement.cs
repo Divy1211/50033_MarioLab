@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     public AudioSource audioSrc;
     public AudioClip jumpSfx;
     public AudioClip jumpSuperSfx;
+    public AudioClip starmanSfx;
     public AudioClip superSfx;
     public AudioClip dmgSfx;
     public AudioClip lifeSfx;
@@ -60,8 +61,13 @@ public class PlayerMovement : MonoBehaviour {
             return;
         }
 
+        MarioStateController m = GetComponent<MarioStateController>();
+        m.TransitionToState(m.startState);
+
+        BuffController b = GetComponent<BuffController>();
+        b.TransitionToState(b.startState);
+
         marioAnimatior.SetTrigger(onReset);
-        SetSize(1.0f);
         marioBody.transform.position = consts.marioStartingPosition;
         marioBody.velocity = dir = Vector2.zero;
         marioBody.angularVelocity = 0.0f;
@@ -69,10 +75,6 @@ public class PlayerMovement : MonoBehaviour {
         upSpeed = 30;
 
         audioSrc.Play();
-    }
-
-    private void SetSize(float s) {
-        transform.localScale = new Vector3(s, s, 1.0f);
     }
 
     public void KillMario(object isDeadObj) {
@@ -83,10 +85,11 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         LiveState.isPlayerAlive = !isDead;
+        GetComponent<MarioStateController>().SetPowerup(PowerupType.Damage);
 
         if (!isDead) {
             LiveState.isSuperMario = false;
-            SetSize(1.0f);
+            LiveState.isFireMario = false;
             audioSrc.PlayOneShot(dmgSfx);
             return;
         }
@@ -179,14 +182,39 @@ public class PlayerMovement : MonoBehaviour {
             upSpeed = 30;
         }
 
-        if (col.gameObject.CompareTag("SuperShroom")) {
-            LiveState.isSuperMario = true;
-            audioSrc.PlayOneShot(superSfx);
-            SetSize(1.5f);
+        if (!LiveState.isPlayerAlive) {
+            return;
         }
-        if (col.gameObject.CompareTag("OneUpShroom")) {
-            audioSrc.PlayOneShot(lifeSfx);
-            ++LiveState.lives;
+
+        switch (col.gameObject.tag) {
+            // yes, once again, these state related checks should by right be done through the FSMs... :')
+            case "SuperShroom": {
+                GetComponent<MarioStateController>().SetPowerup(PowerupType.MagicMushroom);
+                LiveState.isSuperMario = true;
+                audioSrc.PlayOneShot(superSfx);
+                break;
+            }
+            case "FireFlower": {
+                GetComponent<MarioStateController>().SetPowerup(PowerupType.FireFlower);
+                LiveState.isSuperMario = true;
+                LiveState.isFireMario = true;
+                audioSrc.PlayOneShot(superSfx);
+                break;
+            }
+            case "StarMan": {
+                GetComponent<BuffController>().SetPowerup(PowerupType.StarMan);
+                LiveState.isStarman = true;
+                LiveState.musicSrc.Stop();
+                LiveState.musicSrc.PlayOneShot(starmanSfx);
+                StartCoroutine(LiveState.MakeKillable(10f));
+                audioSrc.PlayOneShot(superSfx);
+                break;
+            }
+            case "OneUpShroom": {
+                audioSrc.PlayOneShot(lifeSfx);
+                ++LiveState.lives;
+                break;
+            }
         }
     }
 }

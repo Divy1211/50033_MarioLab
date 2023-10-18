@@ -1,6 +1,9 @@
 using UnityEngine;
 
 public class Event : MonoBehaviour {
+    // this class is simply proxying all the SO events
+    // only to allow PersistState.xxx syntax everywhere
+
     public static GameEvent BackToMenu;
     public static GameEvent GameOver;
     public static GameEvent GameStart;

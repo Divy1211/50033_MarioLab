@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 
 public class PowerUpGen : MonoBehaviour {
-    public PowerUp powerUp = PowerUp.Coin;
+    public PowerupType powerUp = PowerupType.Coin;
 
     public GameObject coinPrefab;
-    public GameObject superShroomPrefab;
+    public GameObject fireFlowerPrefab;
     public GameObject oneUpShroomPrefab;
+    public GameObject starManPrefab;
+    public GameObject superShroomPrefab;
 
     private SpringJoint2D springJoint;
     private Animator animator;
@@ -66,7 +68,7 @@ public class PowerUpGen : MonoBehaviour {
             return;
         }
 
-        if(LiveState.isSuperMario && col.enabled) {
+        if(LiveState.isFireMario && col.enabled) {
             LiveState.particleSys.transform.position = transform.position;
             LiveState.particleSys.Play();
             audioSrc.PlayOneShot(audioSrc.clip);
@@ -76,16 +78,33 @@ public class PowerUpGen : MonoBehaviour {
         }
 
         // if a coin hits from below return also
-        if (powerUp == PowerUp.None || !col.enabled || (col.gameObject.CompareTag("Coin") && col.enabled)) {
+        if (powerUp == PowerupType.Default || !col.enabled || (col.gameObject.CompareTag("Coin") && col.enabled)) {
             return;
         }
 
         if (!animator.GetBool(isDeactivated)) {
             animator.SetBool(isDeactivated, true);
-            if (powerUp == PowerUp.Coin) {
-                SpawnCoin();
-            } else {
-                SpawnShroom(powerUp == PowerUp.SuperShroom ? superShroomPrefab : oneUpShroomPrefab);
+            switch (powerUp) {
+                case PowerupType.Coin: {
+                    SpawnCoin();
+                    break;
+                }
+                case PowerupType.FireFlower: {
+                    SpawnShroom(fireFlowerPrefab);
+                    break;
+                }
+                case PowerupType.OneUpMushroom: {
+                    SpawnShroom(oneUpShroomPrefab);
+                    break;
+                }
+                case PowerupType.MagicMushroom: {
+                    SpawnShroom(superShroomPrefab);
+                    break;
+                }
+                case PowerupType.StarMan: {
+                    SpawnShroom(starManPrefab);
+                    break;
+                }
             }
 
             if(CompareTag("QBox")) {

@@ -20,6 +20,8 @@ GameObject:
   - component: {fileID: 5208849118827623739}
   - component: {fileID: 4599908260898052524}
   - component: {fileID: 4471084014179947219}
+  - component: {fileID: 1506894839523059932}
+  - component: {fileID: 5761410622262741841}
   m_Layer: 8
   m_Name: Mario
   m_TagString: Player
@@ -83,7 +85,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300088, guid: 4d953ee8a2e3043538664e5eb88ff553, type: 3}
+  m_Sprite: {fileID: 21300012, guid: f1bde3f95d8d049e59a4208ea4358c51, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -153,11 +155,11 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1, y: 2}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.8125, y: 1}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -299,6 +301,7 @@ MonoBehaviour:
   audioSrc: {fileID: 3150919060359986295}
   jumpSfx: {fileID: 8300000, guid: bc5ca5e0703c54692a186434e1149ccd, type: 3}
   jumpSuperSfx: {fileID: 8300000, guid: 7988561719a0c40049ae5a3c2870d1e7, type: 3}
+  starmanSfx: {fileID: 8300000, guid: fe80c79237cc34e99babbc6d54016d93, type: 3}
   superSfx: {fileID: 8300000, guid: 26301d2e86e99420599e315297a825df, type: 3}
   dmgSfx: {fileID: 8300000, guid: b520e6b32619c490a934225b9b162dc2, type: 3}
   lifeSfx: {fileID: 8300000, guid: cdc43de50f4574c75afcc7e74975b29a, type: 3}
@@ -354,6 +357,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   jump:
+    m_PersistentCalls:
+      m_Calls: []
+  fire:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &5208849118827623739
@@ -440,3 +446,47 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1506894839523059932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885924087811652001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c591c73174c4f088106145d57267738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startState: {fileID: 11400000, guid: af76da6bbc678b44b81fac0dfb543102, type: 2}
+  previousState: {fileID: 0}
+  currentState: {fileID: 0}
+  remainState: {fileID: 11400000, guid: 4a7a3adf146536a4eb68a149c84d121f, type: 2}
+  transitionStateChanged: 0
+  stateTimeElapsed: 0
+  isActive: 1
+  consts: {fileID: 11400000, guid: d632b1bc49553a4479fb3683544e3157, type: 2}
+  currentPowerupType: 0
+  shouldBeNextState: 0
+--- !u!114 &5761410622262741841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885924087811652001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e3e89c582804f498af4ae3823bff30e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startState: {fileID: 11400000, guid: 26f0eeefdc826214d8f775fd1991e20d, type: 2}
+  previousState: {fileID: 0}
+  currentState: {fileID: 0}
+  remainState: {fileID: 11400000, guid: 4a7a3adf146536a4eb68a149c84d121f, type: 2}
+  transitionStateChanged: 0
+  stateTimeElapsed: 0
+  isActive: 1
+  consts: {fileID: 0}
+  currentPowerupType: 0
+  shouldBeNextState: 0

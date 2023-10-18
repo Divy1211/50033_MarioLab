@@ -4,15 +4,22 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class LiveState : MonoBehaviour {
+    // this is technically still a singleton, but now it only stores values that do not persist
+
     public static ParticleSystem particleSys;
 
+    // yes, these 5 states specific to mario should by right be in the FSMs... :')
     public static bool isSuperMario;
+    public static bool isFireMario;
+    public static bool isStarman;
     public static bool isUnkillable;
     public static bool isPlayerAlive = true;
 
     public static bool isPaused;
     public static bool isFastForwarded;
     public static bool isGameInactive => isPaused || !isPlayerAlive;
+
+    public static AudioSource musicSrc;
 
     private static int _lives = 3;
     public static int lives {
@@ -37,7 +44,6 @@ public class LiveState : MonoBehaviour {
 
     private static Hotkey hotkey;
     private static AudioMixer masterMixer;
-    private static AudioSource musicSrc;
 
     private static void DestroyAllWithTag(string tag) {
         GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
@@ -59,10 +65,14 @@ public class LiveState : MonoBehaviour {
         score = 0;
         isPlayerAlive = true;
         isSuperMario = false;
+        isFireMario = false;
+        isStarman = false;
 
         DestroyAllWithTag("Coin");
         DestroyAllWithTag("SuperShroom");
         DestroyAllWithTag("OneUpShroom");
+        DestroyAllWithTag("FireFlower");
+        DestroyAllWithTag("StarMan");
 
         Time.timeScale = isFastForwarded ? 2.0f : 1.0f;
     }
@@ -102,9 +112,14 @@ public class LiveState : MonoBehaviour {
         Time.timeScale = 0.0f;
     }
 
-    public static IEnumerator MakeKillable() {
-        yield return new WaitForSeconds(1f);
+    public static IEnumerator MakeKillable(float time) {
+        yield return new WaitForSeconds(time);
         isUnkillable = false;
+        if (isStarman) {
+            musicSrc.Stop();
+            musicSrc.Play();
+        }
+        isStarman = false;
     }
 
     void Awake() {

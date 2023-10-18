@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class ActionManager : MonoBehaviour {
      public UnityEvent<Vector2> move;
      public UnityEvent jump;
+     public UnityEvent fire;
 
      private MarioAction marioAction;
 
@@ -16,6 +17,7 @@ public class ActionManager : MonoBehaviour {
           marioAction.Player.Movement.canceled += OnMovement;
 
           marioAction.Player.Jump.performed += OnJump;
+          marioAction.Player.Fire.performed += OnFire;
      }
 
      private void OnMovement(InputAction.CallbackContext ctx) {
@@ -24,5 +26,9 @@ public class ActionManager : MonoBehaviour {
 
      private void OnJump(InputAction.CallbackContext ctx) {
          jump.Invoke();
+     }
+
+     private void OnFire(InputAction.CallbackContext ctx) {
+         fire.Invoke();
      }
 }
