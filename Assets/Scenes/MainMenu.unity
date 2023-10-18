@@ -265,6 +265,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mario
       objectReference: {fileID: 0}
+    - target: {fileID: 4471084014179947219, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+      propertyPath: response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599908260898052524, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+      propertyPath: response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208849118827623739, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+      propertyPath: response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6005426890534678600, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.14
@@ -313,6 +325,11 @@ PrefabInstance:
     - {fileID: 7689831474357128667, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
     - {fileID: 6567878684132892641, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
     - {fileID: 8802967730715945096, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+    - {fileID: 1506894839523059932, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+    - {fileID: 5761410622262741841, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+    - {fileID: 5208849118827623739, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+    - {fileID: 4599908260898052524, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
+    - {fileID: 4471084014179947219, guid: 6f69fe3187befee4eb3297691bbf64ea, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
