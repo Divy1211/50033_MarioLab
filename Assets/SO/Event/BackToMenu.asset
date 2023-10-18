@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c1b1d3398042c1a79e15f1518fe604, type: 3}
-  m_Name: UpdateScoreEvent
+  m_Name: BackToMenu
   m_EditorClassIdentifier: 

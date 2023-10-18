@@ -3,13 +3,13 @@
 public class HotkeyManager : MonoBehaviour {
     private static Hotkey hotkey;
 
-    void Start() {
+    void Awake() {
         hotkey = new Hotkey();
 
         hotkey.Enable();
-        hotkey.UiAction.Reset.performed += _ => GameManager.OnReset();
-        hotkey.UiAction.FastForward.performed += _ => GameManager.OnFastForward();
-        hotkey.UiAction.Pause.performed += _ => GameManager.OnPause();
+        hotkey.UiAction.Reset.performed += _ => Event.Reset.Raise(null);
+        hotkey.UiAction.FastForward.performed += _ => Event.FastFwd.Raise(null);
+        hotkey.UiAction.Pause.performed += _ => Event.Pause.Raise(!LiveState.isPaused);
     }
 
 }

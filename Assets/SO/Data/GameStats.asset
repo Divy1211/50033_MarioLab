@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c1b1d3398042c1a79e15f1518fe604, type: 3}
-  m_Name: PauseEvent
+  m_Script: {fileID: 11500000, guid: f078f32c69b4461bb82121f5b659cc8e, type: 3}
+  m_Name: GameStats
   m_EditorClassIdentifier: 
+  highScore: 3

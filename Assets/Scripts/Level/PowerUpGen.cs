@@ -62,13 +62,13 @@ public class PowerUpGen : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D col) {
-        if (GameManager.isGameInactive) {
+        if (LiveState.isGameInactive) {
             return;
         }
 
-        if(GameManager.isSuperMario && col.enabled) {
-            GameManager.particleSys.transform.position = transform.position;
-            GameManager.particleSys.Play();
+        if(LiveState.isSuperMario && col.enabled) {
+            LiveState.particleSys.transform.position = transform.position;
+            LiveState.particleSys.Play();
             audioSrc.PlayOneShot(audioSrc.clip);
             edgeTop.SetActive(false);
             edgeBot.SetActive(false);

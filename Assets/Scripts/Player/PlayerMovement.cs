@@ -33,11 +33,11 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 dir = Vector2.zero;
 
     private void Jump() {
-        if(GameManager.isGameInactive) {
+        if(LiveState.isGameInactive) {
             return;
         }
         if (onGroundState || !hasDoubleJumped) {
-            audioSrc.PlayOneShot(GameManager.isSuperMario ? jumpSuperSfx : jumpSfx);
+            audioSrc.PlayOneShot(LiveState.isSuperMario ? jumpSuperSfx : jumpSfx);
             marioBody.AddForce(Vector2.up * upSpeed, ForceMode2D.Impulse);
             hasDoubleJumped = !onGroundState;
             if (onGroundState) {
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Move(Vector2 dir) {
-        if (GameManager.isGameInactive) {
+        if (LiveState.isGameInactive) {
             return;
         }
         this.dir = dir;
@@ -56,10 +56,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void OnReset(object _) {
-        if(GameManager.isGameInactive) {
-            marioAnimatior.SetTrigger(onReset);
+        if(LiveState.isPaused) {
+            return;
         }
 
+        marioAnimatior.SetTrigger(onReset);
         SetSize(1.0f);
         marioBody.transform.position = consts.marioStartingPosition;
         marioBody.velocity = dir = Vector2.zero;
@@ -77,14 +78,14 @@ public class PlayerMovement : MonoBehaviour {
     public void KillMario(object isDeadObj) {
         bool isDead = (bool)isDeadObj;
 
-        if (GameManager.isGameInactive) {
+        if (LiveState.isGameInactive) {
             return;
         }
 
-        GameManager.isPlayerAlive = !isDead;
+        LiveState.isPlayerAlive = !isDead;
 
         if (!isDead) {
-            GameManager.isSuperMario = false;
+            LiveState.isSuperMario = false;
             SetSize(1.0f);
             audioSrc.PlayOneShot(dmgSfx);
             return;
@@ -93,7 +94,7 @@ public class PlayerMovement : MonoBehaviour {
         marioAnimatior.Play("mario-die");
         marioBody.velocity = Vector2.zero;
         marioBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
-        --GameManager.lives;
+        --LiveState.lives;
     }
 
     public void OnPause(object pausedObj) {
@@ -154,18 +155,18 @@ public class PlayerMovement : MonoBehaviour {
 
     // called from mario's dying animation
     public void OnDeath() {
-        GameManager.GameOver();
+        Event.GameOver.Raise(null);
     }
 
     private void Update() {
-        if (GameManager.isGameInactive) {
+        if (LiveState.isGameInactive) {
             return;
         }
         Animate();
     }
 
     private void FixedUpdate() {
-        if(GameManager.isGameInactive) {
+        if(LiveState.isGameInactive) {
             return;
         }
         KeepMoving();
@@ -179,13 +180,13 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         if (col.gameObject.CompareTag("SuperShroom")) {
-            GameManager.isSuperMario = true;
+            LiveState.isSuperMario = true;
             audioSrc.PlayOneShot(superSfx);
             SetSize(1.5f);
         }
         if (col.gameObject.CompareTag("OneUpShroom")) {
             audioSrc.PlayOneShot(lifeSfx);
-            ++GameManager.lives;
+            ++LiveState.lives;
         }
     }
 }

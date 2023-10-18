@@ -31,7 +31,7 @@ public class PowerUpProc : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        if (GameManager.isGameInactive) {
+        if (LiveState.isGameInactive) {
             return;
         }
 
@@ -45,7 +45,7 @@ public class PowerUpProc : MonoBehaviour {
                 animator.enabled = false;
                 sprite.enabled = false;
             }
-            ++GameManager.score;
+            ++LiveState.score;
             audioSrc.PlayOneShot(audioSrc.clip);
             StartCoroutine(DestroyAfter(audioSrc.clip.length));
             return;

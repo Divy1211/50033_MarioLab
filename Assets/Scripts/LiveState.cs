@@ -3,36 +3,23 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
-    public bool mainMenu;
-
-    public static GameObject gameUi;
-    public static GameObject youDiedUi;
-    public static GameObject pausedUi;
-    public static GameObject loadingUi;
+public class LiveState : MonoBehaviour {
     public static ParticleSystem particleSys;
 
     public static bool isSuperMario;
     public static bool isUnkillable;
-    public static bool isGameInactive => isPaused || !isPlayerAlive;
-    public static GameStats stats;
-    public static GameEvent ResetEvent;
-    public static GameEvent UpdateScoreEvent;
-    public static GameEvent PauseEvent;
-    public static GameEvent PlayerHitEvent;
+    public static bool isPlayerAlive = true;
 
-    public GameStats _Stats;
-    public GameEvent _ResetEvent;
-    public GameEvent _UpdateScoreEvent;
-    public GameEvent _PauseEvent;
-    public GameEvent _PlayerHitEvent;
+    public static bool isPaused;
+    public static bool isFastForwarded;
+    public static bool isGameInactive => isPaused || !isPlayerAlive;
 
     private static int _lives = 3;
     public static int lives {
         get => _lives;
         set {
             _lives = value;
-            UpdateScoreEvent.Raise(null);
+            Event.UpdateScore.Raise(null);
         }
     }
 
@@ -41,8 +28,8 @@ public class GameManager : MonoBehaviour {
         get => _score;
         set {
             _score = value;
-            stats.highScore = Mathf.Max(stats.highScore, _score);
-            UpdateScoreEvent.Raise(null);
+            PersistState.highScore = Mathf.Max(PersistState.highScore, _score);
+            Event.UpdateScore.Raise(null);
         }
     }
 
@@ -52,10 +39,6 @@ public class GameManager : MonoBehaviour {
     private static AudioMixer masterMixer;
     private static AudioSource musicSrc;
 
-    public static bool isPlayerAlive = true;
-    private static bool isPaused;
-    private static bool isFastForwarded;
-
     private static void DestroyAllWithTag(string tag) {
         GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
         foreach (GameObject obj in objs) {
@@ -63,7 +46,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public static void OnReset() {
+    public static void OnReset(object _) {
         if (isPlayerAlive) {
             lives = startLives;
         } else {
@@ -72,11 +55,6 @@ public class GameManager : MonoBehaviour {
 
         musicSrc.Play();
         isPaused = false;
-
-        ResetEvent.Raise(null);
-
-        gameUi.SetActive(true);
-        youDiedUi.SetActive(false);
 
         score = 0;
         isPlayerAlive = true;
@@ -89,7 +67,7 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = isFastForwarded ? 2.0f : 1.0f;
     }
 
-    public static void OnFastForward() {
+    public static void OnFastForward(object _) {
         if (isGameInactive) {
             return;
         }
@@ -99,39 +77,28 @@ public class GameManager : MonoBehaviour {
         isFastForwarded = !isFastForwarded;
     }
 
-    public static void OnPause() {
+    public static void OnPause(object _) {
         if (!isPlayerAlive) {
             return;
         }
         isPaused = !isPaused;
-        gameUi.SetActive(!isPaused);
-        pausedUi.SetActive(isPaused);
         if (isPaused) {
             musicSrc.Pause();
         } else {
             musicSrc.UnPause();
         }
         Time.timeScale = !isPaused ? isFastForwarded ? 2.0f : 1.0f : 0.0f;
-        PauseEvent.Raise(isPaused);
     }
 
-    public static void OnHighScoreReset() {
-        stats.highScore = 0;
-        UpdateScoreEvent.Raise(null);
-    }
-
-    public static void StartGame() {
+    public static void OnGameStart(object _) {
         SceneManager.LoadSceneAsync("W1-1", LoadSceneMode.Single);
-        loadingUi.SetActive(true);
     }
 
-    public static void BackToMenu() {
+    public static void OnBackToMenu(object _) {
         SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Single);
     }
 
-    public static void GameOver() {
-        gameUi.SetActive(false);
-        youDiedUi.SetActive(true);
+    public static void OnGameOver(object _) {
         Time.timeScale = 0.0f;
     }
 
@@ -144,26 +111,7 @@ public class GameManager : MonoBehaviour {
         masterMixer = GetComponent<AudioSource>().outputAudioMixerGroup.audioMixer;
 
         GameObject cardinal = GameObject.Find("/Cardinal");
-        particleSys = cardinal.transform.GetChild(0).GetComponent<ParticleSystem>();
-        musicSrc = cardinal.transform.GetChild(2).GetComponent<AudioSource>();
-
-        GameObject ui = GameObject.Find("/UI");
-        if(!mainMenu) {
-            gameUi = ui.transform.GetChild(0).gameObject;
-            youDiedUi = ui.transform.GetChild(1).gameObject;
-            pausedUi = ui.transform.GetChild(2).gameObject;
-        } else {
-            loadingUi = ui.transform.GetChild(1).gameObject;
-        }
-
-        stats = _Stats;
-        ResetEvent = _ResetEvent;
-        UpdateScoreEvent = _UpdateScoreEvent;
-        PauseEvent = _PauseEvent;
-        PlayerHitEvent = _PlayerHitEvent;
-    }
-
-    private void Start() {
-        startLives = lives;
+        musicSrc = cardinal.transform.GetChild(0).GetComponent<AudioSource>();
+        particleSys = cardinal.transform.GetChild(1).GetComponent<ParticleSystem>();
     }
 }

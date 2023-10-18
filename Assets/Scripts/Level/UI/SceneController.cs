@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NextScene : MonoBehaviour {
+public class SceneController : MonoBehaviour {
     public string nextSceneName;
 
     void OnTriggerEnter2D(Collider2D other) {

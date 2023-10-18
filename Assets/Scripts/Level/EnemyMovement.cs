@@ -48,17 +48,17 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D col) {
-        if (GameManager.isUnkillable || GameManager.isGameInactive || !col.gameObject.CompareTag("Player")) {
+        if (LiveState.isUnkillable || LiveState.isGameInactive || !col.gameObject.CompareTag("Player")) {
             return;
         }
         if(!col.enabled) {
-            GameManager.PlayerHitEvent.Raise(!GameManager.isSuperMario);
-            GameManager.isUnkillable = true;
-            StartCoroutine(GameManager.MakeKillable());
+            Event.PlayerHit.Raise(!LiveState.isSuperMario);
+            LiveState.isUnkillable = true;
+            StartCoroutine(LiveState.MakeKillable());
             return;
         }
 
-        ++GameManager.score;
+        ++LiveState.score;
         goombaBody.velocity = Vector2.zero;
         goombaCollider.enabled = false;
         goombaAnimatior.Play("goomba-die");
