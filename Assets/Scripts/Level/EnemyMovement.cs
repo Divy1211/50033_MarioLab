@@ -52,7 +52,7 @@ public class EnemyMovement : MonoBehaviour {
             return;
         }
         if(!col.enabled) {
-            GameManager.playerHitEvent.Invoke(!GameManager.isSuperMario);
+            GameManager.PlayerHitEvent.Raise(!GameManager.isSuperMario);
             GameManager.isUnkillable = true;
             StartCoroutine(GameManager.MakeKillable());
             return;

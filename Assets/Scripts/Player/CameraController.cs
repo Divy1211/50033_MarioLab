@@ -18,15 +18,16 @@ public class CameraController : MonoBehaviour {
         bkgMusicSrc.Play();
     }
 
+    public void OnPlayerHit(object isDeadObj) {
+        bool isDead = (bool)isDeadObj;
+        if(!isDead) {
+            return;
+        }
+        deathMusicSrc.Play();
+    }
+
     private void Start() {
         startingPos = transform.position;
-
-        GameManager.playerHitEvent.AddListener(isDead => {
-            if(!isDead) {
-                return;
-            }
-            deathMusicSrc.Play();
-        });
     }
 
     private static float Clamp(float val, float start, float end) {

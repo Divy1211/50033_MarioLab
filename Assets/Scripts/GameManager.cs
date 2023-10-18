@@ -1,14 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public bool mainMenu;
-
-    public static UnityEvent<bool> playerHitEvent;
-    public static UnityEvent<bool> pauseEvent;
 
     public static GameObject gameUi;
     public static GameObject youDiedUi;
@@ -22,10 +18,14 @@ public class GameManager : MonoBehaviour {
     public static GameStats stats;
     public static GameEvent ResetEvent;
     public static GameEvent UpdateScoreEvent;
+    public static GameEvent PauseEvent;
+    public static GameEvent PlayerHitEvent;
 
     public GameStats _Stats;
     public GameEvent _ResetEvent;
     public GameEvent _UpdateScoreEvent;
+    public GameEvent _PauseEvent;
+    public GameEvent _PlayerHitEvent;
 
     private static int _lives = 3;
     public static int lives {
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
     private static AudioMixer masterMixer;
     private static AudioSource musicSrc;
 
-    private static bool isPlayerAlive = true;
+    public static bool isPlayerAlive = true;
     private static bool isPaused;
     private static bool isFastForwarded;
 
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour {
             musicSrc.UnPause();
         }
         Time.timeScale = !isPaused ? isFastForwarded ? 2.0f : 1.0f : 0.0f;
-        pauseEvent.Invoke(isPaused);
+        PauseEvent.Raise(isPaused);
     }
 
     public static void OnHighScoreReset() {
@@ -141,9 +141,6 @@ public class GameManager : MonoBehaviour {
     }
 
     void Awake() {
-        playerHitEvent = new UnityEvent<bool>();
-        pauseEvent = new UnityEvent<bool>();
-
         masterMixer = GetComponent<AudioSource>().outputAudioMixerGroup.audioMixer;
 
         GameObject cardinal = GameObject.Find("/Cardinal");
@@ -162,10 +159,11 @@ public class GameManager : MonoBehaviour {
         stats = _Stats;
         ResetEvent = _ResetEvent;
         UpdateScoreEvent = _UpdateScoreEvent;
+        PauseEvent = _PauseEvent;
+        PlayerHitEvent = _PlayerHitEvent;
     }
 
-    void Start() {
+    private void Start() {
         startLives = lives;
-        playerHitEvent.AddListener(isDead => isPlayerAlive = !isDead);
     }
 }

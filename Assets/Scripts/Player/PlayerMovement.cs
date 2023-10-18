@@ -74,10 +74,14 @@ public class PlayerMovement : MonoBehaviour {
         transform.localScale = new Vector3(s, s, 1.0f);
     }
 
-    private void KillMario(bool isDead) {
+    public void KillMario(object isDeadObj) {
+        bool isDead = (bool)isDeadObj;
+
         if (GameManager.isGameInactive) {
             return;
         }
+
+        GameManager.isPlayerAlive = !isDead;
 
         if (!isDead) {
             GameManager.isSuperMario = false;
@@ -92,7 +96,8 @@ public class PlayerMovement : MonoBehaviour {
         --GameManager.lives;
     }
 
-    private void OnPause(bool paused) {
+    public void OnPause(object pausedObj) {
+        bool paused = (bool)pausedObj;
         if (!paused) {
             Move(Vector2.zero);
             return;
@@ -114,9 +119,6 @@ public class PlayerMovement : MonoBehaviour {
         ActionManager actionManager = GetComponent<ActionManager>();
         actionManager.jump.AddListener(Jump);
         actionManager.move.AddListener(Move);
-
-        GameManager.playerHitEvent.AddListener(KillMario);
-        GameManager.pauseEvent.AddListener(OnPause);
     }
 
     private void FlipSprite(Vector2 dir) {
